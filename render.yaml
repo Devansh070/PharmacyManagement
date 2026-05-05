@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: pharmacy-backend
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    disk:
+      name: pharmacy-data
+      mountPath: /data
+      sizeGB: 1
+
+  - type: web
+    name: pharmacy-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: build
